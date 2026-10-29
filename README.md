@@ -73,11 +73,11 @@ Manual acceptance checklist after connecting accounts:
 - [ ] Repeated create attempts do not create unintended duplicate invoices.
 - [ ] Mobile layout, local save/restore, JSON export, errors, and authentication work.
 
-## Hackathon preparation still required
+## Demo and evaluation
 
-Publish this source to a **public** GitHub/GitLab/Bitbucket repository with this MIT license and setup instructions, and provide a judge-runnable build or hosted demo. The current Sites deployment is owner-private and is not judge access. The Sites source repository/private preview is not a substitute for the required public repository. Do not publish API secrets; judges can configure their own sandbox and Gemini credentials using the setup instructions.
+Public demo video: https://youtube.com/shorts/KYOtxpa2Lqk
 
-An English demo was scripted, narrated in ElevenLabs, and edited/exported on this device in Wondershare Filmora. The MP4 is 1 minute 59 seconds, 1080 × 1080, 25 fps, with AAC narration. It demonstrates the working app and makes no paid-invoice claim. Public YouTube upload and final Devpost confirmation remain.
+The complete source is published in InvoicePilot-source.zip with the MIT license and setup instructions. Download and extract it, then use the commands above. The hosted Sites application is owner-private; judges should run the source locally with their own PayPal sandbox and Gemini credentials. The 1:59 demonstration uses ElevenLabs narration and was edited/exported in Wondershare Filmora. It shows an UNPAID sandbox invoice and makes no buyer-payment claim. Devpost entry preparation is in progress.
 
 ## Official integration references
 
@@ -89,6 +89,7 @@ An English demo was scripted, narrated in ElevenLabs, and edited/exported on thi
 ## License
 
 Application source is MIT licensed. Third-party packages and the vendored Sites integration retain their own licenses.
+
 
 
 
