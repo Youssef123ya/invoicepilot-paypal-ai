@@ -4,7 +4,7 @@ Turn freelancer work notes into a reviewed invoice, then create and track it in 
 
 ## Current status
 
-The application and provider integrations are implemented. **Live tests passed for Gemini structured drafting, missing-detail clarification, hosted human review, PayPal sandbox invoice creation, payment-link activation, and status refresh.** The generated example totals $600.00 USD. The activated invoice remains UNPAID: no buyer payment has been completed or verified. Automated provider tests use mocks. The prepared sample is clearly labeled and never pretends to be a provider result. This project has not been sent to Devpost.
+The application and provider integrations are implemented. **Live tests passed for Gemini structured drafting, missing-detail clarification, hosted human review, PayPal sandbox invoice creation, payment-link activation, and status refresh.** The generated example totals $600.00 USD. The activated invoice remains UNPAID: no buyer payment has been completed or verified. Automated provider tests use mocks. The prepared sample is clearly labeled and never pretends to be a provider result. Submitted to the PayPal AI Hackathon on October 29, 2026. [Public Devpost entry](https://devpost.com/software/invoicepilot-s9euh1).
 
 ## Source package
 
@@ -77,7 +77,7 @@ Manual acceptance checklist after connecting accounts:
 
 Public demo video: https://youtube.com/shorts/KYOtxpa2Lqk
 
-The complete source is published in InvoicePilot-source.zip with the MIT license and setup instructions. Download and extract it, then use the commands above. The hosted Sites application is owner-private; judges should run the source locally with their own PayPal sandbox and Gemini credentials. The 1:59 demonstration uses ElevenLabs narration and was edited/exported in Wondershare Filmora. It shows an UNPAID sandbox invoice and makes no buyer-payment claim. Devpost entry preparation is in progress.
+The complete source is published in InvoicePilot-source.zip with the MIT license and setup instructions. Download and extract it, then use the commands above. The hosted Sites application is owner-private; judges should run the source locally with their own PayPal sandbox and Gemini credentials. The 1:59 demonstration uses ElevenLabs narration and was edited/exported in Wondershare Filmora. It shows an UNPAID sandbox invoice and makes no buyer-payment claim. The [PayPal AI Hackathon entry](https://devpost.com/software/invoicepilot-s9euh1) is submitted and was verified live on November 2, 2026.
 
 ## Official integration references
 
