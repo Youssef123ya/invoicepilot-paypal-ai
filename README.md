@@ -28,10 +28,10 @@ Without credentials you can still try the prepared sample, edit line items, save
 
 ### Account setup
 
-1. Sign in to [PayPal Developer](https://developer.paypal.com/dashboard/). In **Apps & Credentials**, select **Sandbox** and create an app. Keep its Client ID and Secret private. In Sandbox Accounts, identify a business seller and personal buyer.
-2. Sign in to [Google AI Studio](https://aistudio.google.com/apikey), create an API key, and review model access, quotas, and billing settings. The model defaults to `gemini-3.5-flash-lite`; change `GEMINI_MODEL` to an accessible model supporting structured output if needed.
-3. Run `scripts/setup-connections.ps1`. It asks for all three values using hidden prompts and writes ignored `.dev.vars` for local Worker development. Restart the server after changes. Never commit this file or paste credentials into chat.
-4. Hosted secrets must be configured separately in Sites runtime settings: `PAYPAL_CLIENT_ID`, `PAYPAL_CLIENT_SECRET`, `GEMINI_API_KEY`, optionally `GEMINI_MODEL`. Redeploy to apply a new environment revision. Local `.dev.vars` is never uploaded. Keep the hosted site private while it uses a shared seller account.
+1. Sign in to [PayPal Developer](https://developer.paypal.com/dashboard/). In **Apps & Credentials**, select **Sandbox** and choose or create an app for your Sandbox business seller. Keep its Client ID and Secret private.
+2. For AI drafting, get an API key from [Google AI Studio](https://aistudio.google.com/apikey) and review model access, quotas, and billing settings. The model defaults to `gemini-3.5-flash-lite`. Set `GEMINI_MODEL` to an accessible model supporting structured output if needed. Manual invoicing and payment verification work without a Gemini key.
+3. Run `scripts/setup-connections.ps1` and enter the two Sandbox app credentials at the hidden prompts. Press Enter at the Gemini prompt to skip AI setup. The script writes an ignored `.dev.vars` file. If you confirm replacing that file, re-enter any Gemini key you still want to use. Restart the server after changes. Keep credentials out of Git and chat.
+4. For the hosted site, set `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET` in Sites runtime settings. For AI drafting, also set `GEMINI_API_KEY` and, optionally, `GEMINI_MODEL`. Redeploy to apply changes to runtime settings. Keep the hosted site private while it uses a shared seller account.
 
 ## Workflow
 
@@ -51,6 +51,13 @@ Without credentials you can still try the prepared sample, edit line items, save
 
 Entry points: `app/invoice-app.tsx` (UI), `app/api/[...path]/route.ts` (API and authorization), `lib/invoice.ts` (validation/money/PayPal mapping), `lib/services.ts` (providers). Preserve the starter's Sites build integration when deploying. Runtime secrets are not in `.openai/hosting.json`.
 
+## Verify a full Sandbox buyer payment
+
+1. In [PayPal Developer](https://developer.paypal.com/dashboard/), confirm the app credentials are from **Sandbox** and belong to your Sandbox **Business** seller. In **Testing Tools → Sandbox Accounts**, find a separate **Personal** buyer and its test login. Use that buyer's email on the invoice. [PayPal Sandbox accounts](https://developer.paypal.com/sandbox-testing/accounts)
+2. Sign in to InvoicePilot. If you have an activated, unpaid invoice addressed to that buyer, use its row under **Invoices**. Otherwise, use **Create invoice** and manually enter a test business name, the Sandbox buyer's name and email, and one line item (for example, one unit at $5.00 USD). Review it, check the review box, click **Create PayPal sandbox invoice**, then **Activate sandbox payment link → Activate link**. Email notifications are disabled. Record the invoice number and amount, then refresh and check that PayPal reports `UNPAID` or `SENT`.
+3. Copy **Open payment link** (or **Open link** in **Invoices**) into a separate browser profile or private window so you can sign in as the **Personal** Sandbox buyer. If **Open link** is missing from the list, click **Refresh** on that invoice's row to load its details. Verify the hostname is `sandbox.paypal.com` or a subdomain of it before signing in. Use the buyer's Sandbox test funds or a Sandbox funding source and pay the full amount. Check PayPal's payment confirmation for the same invoice and amount.
+4. Back in InvoicePilot, click **Refresh PayPal status**, or **Refresh** on the matching invoice row. Pass when the same invoice displays **PAID** after the buyer's successful checkout. Record the invoice number, amount, and before/after statuses. If PayPal shows **PAYMENT PENDING**, wait and refresh the same invoice. Confirm the buyer's transaction in Sandbox activity before trying another payment. **MARKED AS PAID** is a seller-recorded payment and does not satisfy this check. [PayPal invoice statuses](https://developer.paypal.com/invoicing/core-concepts/)
+
 ## Verification
 
 ```powershell
@@ -59,7 +66,7 @@ node node_modules/typescript/bin/tsc --noEmit
 npm run build
 ```
 
-Automated tests cover line-level currency arithmetic, input validation, sandbox URL restrictions, missing credential behavior, OAuth and request mapping, link-only create responses, redacted errors, and structured AI output. Provider tests use mocks and do not prove live account compatibility.
+Automated tests cover line-level currency arithmetic, input validation, sandbox URL restrictions, missing credential behavior, OAuth and request mapping, link-only create responses, status mapping, redacted errors, and structured AI output. The buyer checkout and PAID readback checklist item requires a real Sandbox transaction.
 
 Manual acceptance checklist after connecting accounts:
 
